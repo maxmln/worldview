@@ -1,48 +1,77 @@
 FORMAT: 1A
+ 
+# WorldView API
+Worldview is a website that allow travellers to choose their desired destination by looking at photos from it taken by other travellers.
 
-# worldview
-Worldview is the best choice for the people looking for a cool place to travel. It helps you choose a destination by reviewing other people's photos from all over the world.
-
-Source : https://github.com/mbogdanoff/worldview
-
-# Group Categories
-Notes related resources of the **Notes API**
-
-## Search for images [/notes]
-### List all Images [GET]
-+ Response 200 (application/json)
-
-        [{
-          "id": 1, "title": "Sofia"
-        }, {
-          "id": 2, "title": "Madrid"
-        }]
-
-## Upload an image [POST]
-+ Request (application/json)
-
-        { "title": "Buy cheese and bread for breakfast." }
-
-+ Response 201 (application/json)
-
-        { "id": 3, "title": "Sofia" }
-
-## Image [/notes/{id}]
-A single Note object with all its details
-
-+ Parameters
-    + id (required, number, `1`) ... Numeric `id` of the Note to perform action with. Has example value.
-
-### Retrieve an Image [GET]
-+ Response 200 (application/json)
-
-    + Header
-
-            X-My-Header: The Value
-
+# Group Gallery
+All filtered photos on a single page.
+ 
+## Photos [/photos/{id}]
+Provides access to a single photo.
+ 
++ Model (application/json)
+ 
+    JSON representation of photos.
+ 
     + Body
-
-            { "id": 2, "title": "Pick-up posters from post-office" }
-
-### Remove an Image [DELETE]
+ 
+            {
+            "id": "1",
+            "city": "Sofia,Bulgaria",
+            "season": "Winter",
+            "date": "2012-04-23T18:25:43.511Z",
+            "object-name": "Cathedral Saint Alexandar Nevski",
+            "img-source": "http://static.panoramio.com/photos/large/8072372.jpg"
+            }
+ 
+### Retrieve a Photo [GET]
++ Response 200
+    
+    [Photos][]
+ 
+### Delete a Photo [DELETE]
 + Response 204
+ 
+## Photos Collection [/photos{?q}]
+Provides access to all photos.
+ 
++ Model (application/json)
+ 
+    JSON representation of photos.
+ 
+    + Body
+ 
+            {
+            "id": "1",
+            "city": "Sofia,Bulgaria",
+            "season": "Winter",
+            "date": "2012-04-23T18:25:43.511Z",
+            "object-name": "Cathedral Saint Alexandar Nevski",
+            "img-source": "http://static.panoramio.com/photos/large/8072372.jpg"
+            }
+ 
+### List All Photos [GET]
++ Parameters
+    + q (optional, string) ... Keyword query to search for photos.
+ 
++ Response 200
+ 
+    [Photos Collection][]
+ 
+### Upload a Photo [POST]
+Allows the creation of a new photo
+ 
++ Request (application/json)
+ 
+            {
+            "id": "1",
+            "city": "Sofia,Bulgaria",
+            "season": "Winter",
+            "date": "2012-04-23T18:25:43.511Z",
+            "object-name": "Cathedral Saint Alexandar Nevski",
+            "img-source": "http://static.panoramio.com/photos/large/8072372.jpg"
+            }
+ 
++ Response 201
+ 
+    [Photos][]
