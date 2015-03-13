@@ -6,10 +6,11 @@ $(document).ready(function() {
         console.log(JSON.stringify(response))
         var i=0;
         $.each(response,function(){
-            if(response[i].city.indexOf($("#inputpictureid").val()) >- 1
-                && response[i].season.indexOf($("#seasoninput").val()) >- 1 ) {
-                console.log("entered a city")
-                addPictureInfo(response[i])
+            if(response[i].city.indexOf($("#inputpictureid").val()) > -1
+                && response[i].season.indexOf($("#seasoninput").val()) > -1
+                && $("#seasoninput").val()!= "") {
+                console.log("entered a city");
+                addPictureInfo(response[i]);
                 i++;
             }
         });
@@ -26,11 +27,32 @@ $(document).ready(function() {
         $("#content").append(objectNameElement);
     }
 
+    function processPost(response){
+        console.log(JSON.stringify(response))
+    }
+
     $("#getBtn").click(function(){
         $("#content").empty();
-        $.ajax("http://private-6ba54-worldview.apiary-mock.com/photos/"+$("#inputpictureid").val(), {
+        $.ajax("http://private-6ba54-worldview.apiary-mock.com/photos", {
             method: "GET"
         }).then(processResponse);
-    })
+    });
+
+    $("#clearBtn").click(function(){
+        $("#content").empty();
+    });
+
+    $("#uploadimageurl").click(function(){
+        console.log("trying to upload");
+        $.ajax("http://private-6ba54-worldview.apiary-mock.com/photos/",{
+            method: "POST",
+            data:{
+                id:3,
+                city:$("#inputpictureid").val(),
+                season:$("#seasoninput").val(),
+                objectname:$("#objectnameinput").val()
+            }
+        }).then(processPost);
+    });
 
 });
