@@ -42,17 +42,20 @@ $(document).ready(function() {
         $("#content").empty();
     });
 
-    $("#uploadimageurl").click(function(){
+    $("#uploadBtn").click(function(){
         console.log("trying to upload");
-        $.ajax("http://private-6ba54-worldview.apiary-mock.com/photos/",{
+        $.ajax("http://private-6ba54-worldview.apiary-mock.com/photos",{
             method: "POST",
             data:{
                 id:3,
                 city:$("#inputpictureid").val(),
                 season:$("#seasoninput").val(),
                 objectname:$("#objectnameinput").val()
+            },
+            success: function(data){
+                console.log(JSON.stringify(data));
             }
-        }).then(processPost);
+        })//.then(processPost);
     });
 
 });
