@@ -4,9 +4,10 @@ $(document).ready(function() {
     function processResponse(response){
         console.log("working")
         console.log(JSON.stringify(response))
+        console.log()
         var i=0;
         $.each(response,function(){
-            if(response[i].city.indexOf($("#inputpictureid").val()) > -1
+            if(response[i].city.indexOf($("#inputpictureid").val().replace(", ","-")) > -1
                 && response[i].season.indexOf($("#seasoninput").val()) > -1
                 && $("#seasoninput").val()!= "") {
                 console.log("entered a city");
@@ -31,6 +32,14 @@ $(document).ready(function() {
         console.log(JSON.stringify(response))
     }
 
+    function clearFieldsAndContent(){
+        $("#content").empty();
+        $("#inputpictureid").val('');
+        $("#seasoninput").val('');
+        $("#objectnameinput").val('');
+        $("#uploadimageurl").val('');
+    }
+
     $("#getBtn").click(function(){
         $("#content").empty();
         $.ajax("http://private-6ba54-worldview.apiary-mock.com/photos", {
@@ -39,7 +48,7 @@ $(document).ready(function() {
     });
 
     $("#clearBtn").click(function(){
-        $("#content").empty();
+        clearFieldsAndContent();
     });
 
     $("#uploadBtn").click(function(){
@@ -51,11 +60,10 @@ $(document).ready(function() {
                 city:$("#inputpictureid").val(),
                 season:$("#seasoninput").val(),
                 objectname:$("#objectnameinput").val()
-            },
-            success: function(data){
-                console.log(JSON.stringify(data));
             }
-        })//.then(processPost);
+        }).then(processPost);
     });
 
+    $("#inputpictureid").geocomplete();
+    
 });
