@@ -1,77 +1,10 @@
-FORMAT: 1A
- 
-# WorldView API
-Worldview is a website that allow travellers to choose their desired destination by looking at photos from it taken by other travellers.
+# WORLDVIEW
+Основните функционалности на сайта ще бъдат:
 
-# Group Gallery
-All filtered photos on a single page.
+1. Качване на снимки с описание (#тагове) - само за регистрираните потребители,като всяка снимка преди да бъде публикувана, трябва да бъде удобрена от администратор.
  
-## Photos [/photos/{id}]
-Provides access to a single photo.
+2. Търсене на снимки - за всички потребители, като търсенето става, чрез въвеждане на ключова дума (#-таг). Към търсенето ще бъде интегриран Place Autocomplete, чрез Google Places API.
  
-+ Model (application/json)
- 
-    JSON representation of photos.
- 
-    + Body
- 
-            {
-            "id": "1",
-            "city": "Sofia,Bulgaria",
-            "season": "Winter",
-            "date": "2012-04-23T18:25:43.511Z",
-            "object-name": "Cathedral Saint Alexandar Nevski",
-            "img-source": "http://static.panoramio.com/photos/large/8072372.jpg"
-            }
- 
-### Retrieve a Photo [GET]
-+ Response 200
-    
-    [Photos][]
- 
-### Delete a Photo [DELETE]
-+ Response 204
- 
-## Photos Collection [/photos{?q}]
-Provides access to all photos.
- 
-+ Model (application/json)
- 
-    JSON representation of photos.
- 
-    + Body
- 
-            {
-            "id": "1",
-            "city": "Sofia,Bulgaria",
-            "season": "Winter",
-            "date": "2012-04-23T18:25:43.511Z",
-            "object-name": "Cathedral Saint Alexandar Nevski",
-            "img-source": "http://static.panoramio.com/photos/large/8072372.jpg"
-            }
- 
-### List All Photos [GET]
-+ Parameters
-    + q (optional, string) ... Keyword query to search for photos.
- 
-+ Response 200
- 
-    [Photos Collection][]
- 
-### Upload a Photo [POST]
-Allows the creation of a new photo
- 
-+ Request (application/json)
- 
-            {
-            "id": "1",
-            "city": "Sofia,Bulgaria",
-            "season": "Winter",
-            "date": "2012-04-23T18:25:43.511Z",
-            "object-name": "Cathedral Saint Alexandar Nevski",
-            "img-source": "http://static.panoramio.com/photos/large/8072372.jpg"
-            }
- 
-+ Response 201
- 
-    [Photos][]
+3. Намиране на снимки, заснети близо до потребителят - Карта, на която са отбелязани снимките, заснети на показаното място, чрез EXIF Data.
+
+4. Администраторски панел - дава възможност на администраторите да удобряват снимки за публикуване
