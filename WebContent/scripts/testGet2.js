@@ -18,14 +18,18 @@ $(document).ready(function() {
     }
 
     function addPictureInfo(response){
+        conso
+        var newImageLi = $("<li> </li>>");
         var ImageElement = $("<img src="+ JSON.stringify(response.imgsource) +">");
-        $("#content").append(ImageElement);
+        newImageLi.append(ImageElement);
         var placeElement = $("<p>"+ JSON.stringify(response.city) +"</p>");
-        $("#content").append(placeElement);
+        newImageLi.append(placeElement);
         var seasonElement = $("<p>"+ JSON.stringify(response.season) +"</p>");
-        $("#content").append(seasonElement);
+        newImageLi.append(seasonElement);
         var objectNameElement = $("<p>"+ JSON.stringify(response.objectname) +"</p>");
-        $("#content").append(objectNameElement);
+        newImageLi.append(objectNameElement);
+        $("#contentul").append(newImageLi);
+
     }
 
     function processPost(response){
@@ -64,6 +68,21 @@ $(document).ready(function() {
         }).then(processPost);
     });
 
+    $("#deleteBtn").click(function(){
+        var deleteImage = $("#deletepictureid").val();
+        if (deleteImage.length<=0) {
+            alert("Enter ID");
+            return false;
+        }
+        $.ajax({
+            url: "http://private-6ba54-worldview.apiary-mock.com/photos/"+deleteImage,
+            method: "DELETE",
+            success: function(result4){
+                alert("Image successfully deleted.");
+            }
+        });
+    });
+
     $("#inputpictureid").geocomplete();
-    
+
 });

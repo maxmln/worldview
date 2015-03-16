@@ -6,6 +6,7 @@
 </head>
 
 <body>
+
 	<input id="inputpictureid"> Enter a city </input>
 	<br>
 	<input id="seasoninput"> Enter a season </input>
@@ -14,12 +15,18 @@
 	<br>
 	<input id="uploadimageurl"> Image URL (For uploading) </input>
 	<br>
+	<input id="deletepictureid"> Image ID (For deleting) </input>
+	<br>
 	<button id="getBtn">Get photos</button>
 	<button id="clearBtn">Clear</button>
 	<button id="uploadBtn">Upload a photo</button>
+	<button id="deleteBtn">Delete a photo by id</button>
 	<br>
 	<br>
 	<div id="content">
+		<ul id="contentul">
+
+		</ul>
 	</div>
 </body>
 
@@ -27,5 +34,4 @@
 	<script type="text/javascript" src="libs/jquery-1.11.2.js"></script>
 	<script type="text/javascript" src="libs/jquery.geocomplete.js"></script>
 	<script type="text/javascript" src="scripts/testGet2.js"></script>
-	<script type="text/javascript" src="scripts/autocompletion.js"></script>
 </html>
