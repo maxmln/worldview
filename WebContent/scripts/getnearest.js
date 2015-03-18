@@ -17,6 +17,29 @@ $(document).ready(function() {
     }
 
 
+    function processSeasons(response){
+        var i=0;
+        var top,left=0;
+        $.each(response,function(){
+            if(clickedSeason==response[i].season){
+                console.log(response[i]);
+                addPhotoToList(response[i],top,left);
+                left = left+300;
+                if(left>1300){
+                    top = top+300;
+                }
+            }
+            i++;
+        });
+    }
+
+    $("#summer, #winter, #autumn, #spring").click(function(){
+        $(".date-posts").empty();
+        clickedSeason=this.id;
+        $.ajax("http://private-6ba54-worldview.apiary-mock.com/search",{
+            method:"GET"
+        }).then(processSeasons);
+    });
 
 
 
