@@ -1,24 +1,34 @@
 $(document).ready(function() {
     "use strict";
 
-    function processResponse(response){
-        //console.log(JSON.stringify(response))
-        var i=0;
-        var top,left=0;
-        $.each(response,function(){
+    var clickedSeason;
 
-          addPhotoToList(response[i],top,left);
-            i++;
-            left=left+300;
+    function processNearest(response){
+        var i=0;
+        var top=0,left=0;
+        $.each(response,function(){
+            addPhotoToList(response[i],top,left);
+            left = left+300;
             if(left>1300){
-                left=0;
-                top=top+300;
+                top = top+300;
             }
+            i++;
         });
     }
 
+
+
+
+
+
+    $("#near").click(function(){
+        $(".date-posts").empty();
+        $.ajax("http://private-6ba54-worldview.apiary-mock.com/nearest",{
+            method:"GET"
+        }).then(processNearest)
+    });
+
     function addPhotoToList(response,top,left){
-        console.log(response.imgurl);
         var postOuter = $("<div></div>");
         postOuter.attr("class","post-outer");
         var postHentry = $("<div></div>");
@@ -40,11 +50,11 @@ $(document).ready(function() {
         imgSource.attr("src",response.imgurl);
         var jomore = $("<div></div>");
         jomore.attr("class","jomore");
-        var author1 = $("<span>"+JSON.stringify(response.author)+"</span>");
+        var author1 = $("<span> Author :"+JSON.stringify(response.author)+"</span>");
         author1.attr("class","author1");
-        var description = $("<span>"+JSON.stringify(response.description)+"</span>");
+        var description = $("<span> Description : "+JSON.stringify(response.description)+"</span>");
         description.attr("class","description");
-        var season = $("<span>"+JSON.stringify(response.season)+"</span>");
+        var season = $("<span> Season : "+JSON.stringify(response.season)+"</span>");
         season.attr("class","season");
 
         jomore.append(author1);
@@ -63,14 +73,10 @@ $(document).ready(function() {
         postOuter.append(postHentry);
 
         ($(".date-posts")).append(postOuter);
-
     }
 
+    $("#searchinput").geocomplete();
 
-    $("#near").click(function(){
-        $.ajax("http://private-6ba54-worldview.apiary-mock.com/nearest",{
-            method:"GET"
-        }).then(processResponse)
-    })
+
 
 });

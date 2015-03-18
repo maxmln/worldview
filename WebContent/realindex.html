@@ -7,27 +7,28 @@
 <body>
     <div id="wrapper">
         <div id="header">
-                <div class="blognames section" id="blognames"><div class="widget Header" id="Header1">
-                    <h1 id="blog-title"><span>
-                    <a href="" rel="home" title="World View">World View</a>
-                     </span></h1>
-                    <h2 id="blog-desc"><span>Check it out before you go there.</span></h2>
-                </div>
+                <div class="blognames section" id="blognames">
+                    <div class="widget Header" id="Header1">
+                        <h1 id="blog-title"><span>
+                        <a href="" rel="home" title="World View">World View</a>
+                         </span></h1>
+                        <h2 id="blog-desc"><span>Check it out before you go there.</span></h2>
+                    </div>
          </div>
      </div>
      <form action="" id="search" method="get">
-            <input name="q" placeholder="Enter a city" size="40" type="text">
+            <input name="q" id="searchinput" placeholder="Enter a city" size="40" type="text">
      </form>
 
     <div class="menujohanes">
         <ul class="dark_menu">
-            <li><a class="selected" id="near" title="Home">Near places</a></li>
+            <li><a class="selected"  id="near" href="#" title="Home">Near places</a></li>
             <li data-role="dropdown"><a>Seasons</a>
                 <ul>
-                    <li><a>Summer</a></li>
-                    <li><a>Spring</a></li>
-                    <li><a>Winter</a></li>
-                    <li><a>Autumn</a></li>
+                    <li><a id="summer">Summer</a></li>
+                    <li><a id="spring">Spring</a></li>
+                    <li><a id="winter">Winter</a></li>
+                    <li><a id="autumn">Autumn</a></li>
                 </ul>
             </li>
         </ul>
