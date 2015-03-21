@@ -41,7 +41,16 @@ $(document).ready(function() {
         }).then(processSeasons);
     });
 
+    $(".delete").click(function(){
+        console.log("clicked");
+        $.ajax("http://private-6ba54-worldview.apiary-mock.com/photos/"+this.id,{
+            method:"DELETE"
+        }).then(successfullyDeleted)
+    });
 
+    function successfullyDeleted(response){
+        console.log(response);
+    }
 
 
     $("#near").click(function(){
@@ -79,6 +88,9 @@ $(document).ready(function() {
         description.attr("class","description");
         var season = $("<span> Season : "+JSON.stringify(response.season)+"</span>");
         season.attr("class","season");
+        var delBtn = $("<button>X</button>");
+        delBtn.attr("class","delete");
+        delBtn.attr("id",JSON.stringify(response.id));
 
         jomore.append(author1);
         jomore.append(description);
@@ -92,6 +104,7 @@ $(document).ready(function() {
         cover.append(imgID);
 
         postright.append(cover);
+        postright.append(delBtn);
         postHentry.append(postright);
         postOuter.append(postHentry);
 
