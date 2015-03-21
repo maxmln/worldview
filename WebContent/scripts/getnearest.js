@@ -2,28 +2,32 @@ $(document).ready(function() {
     "use strict";
 
     var clickedSeason;
+    var displayedPhotos =[];
 
     function processNearest(response){
         var i=0;
         var top=0,left=0;
         $.each(response,function(){
             addPhotoToList(response[i],top,left);
+            displayedPhotos.push(response[i]);
             left = left+300;
             if(left>1300){
                 top = top+300;
             }
             i++;
         });
+        console.log(displayedPhotos);
+        console.log(response)
     }
 
 
-    function processSeasons(response){
+    function processSeasons(){
         var i=0;
         var top,left=0;
-        $.each(response,function(){
-            if(clickedSeason==response[i].season){
-                console.log(response[i]);
-                addPhotoToList(response[i],top,left);
+        $.each(displayedPhotos,function(){
+            if(clickedSeason==displayedPhotos[i].season){
+                console.log(displayedPhotos[i]);
+                addPhotoToList(displayedPhotos[i],top,left);
                 left = left+300;
                 if(left>1300){
                     top = top+300;
@@ -54,6 +58,7 @@ $(document).ready(function() {
 
 
     $("#near").click(function(){
+        displayedPhotos.length=0;
         $(".date-posts").empty();
         $.ajax("http://private-6ba54-worldview.apiary-mock.com/nearest",{
             method:"GET"
