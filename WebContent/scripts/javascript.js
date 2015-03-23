@@ -53,8 +53,16 @@ $(document).ready(function() {
     });
 
     function successfullyDeleted(response){
-        console.log(response);
+        console.log("deleted");
     }
+
+    $("#searchBtn").click(function(){
+        displayedPhotos.length=0;
+        $(".date-posts").empty();
+        $.ajax("http://private-6ba54-worldview.apiary-mock.com/search",{
+           method:"GET"
+        }).then(searchFunc)
+    });
 
 
     $("#near").click(function(){
@@ -64,6 +72,44 @@ $(document).ready(function() {
             method:"GET"
         }).then(processNearest)
     });
+
+    function searchFunc(response){
+        console.log(response);
+        var i=0;
+        var top,left=0;
+        $.each(response,function(){
+            if(response[i].location == $("#searchinput").val()){
+                addPhotoToList(response[i],top,left);
+                displayedPhotos.push(response[i]);
+                left = left+300;
+                if(left>1300){
+                    top = top+300;
+                }
+            }
+            i++;
+        });
+    }
+
+    $("#upload").click(function(){
+        displayedPhotos.length=0;
+        $(".date-posts").empty();
+        createForm();
+
+    });
+
+    function createForm(){
+        $(".date-posts").empty();
+        var locationField = $("<input>");
+        locationField.attr("id","locationField");
+        $(".date-posts").append(locationField);
+
+        
+
+//        var seasonField = ;
+//        var imgUrlField = ;
+//        var descriptionField = ;
+
+    }
 
     function addPhotoToList(response,top,left){
         var postOuter = $("<div></div>");
@@ -113,7 +159,7 @@ $(document).ready(function() {
         postHentry.append(postright);
         postOuter.append(postHentry);
 
-        ($(".date-posts")).append(postOuter);
+        $(".date-posts").append(postOuter);
     }
 
     $("#searchinput").geocomplete();
