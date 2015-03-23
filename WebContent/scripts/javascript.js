@@ -45,16 +45,7 @@ $(document).ready(function() {
         }).then(processSeasons);
     });
 
-    $(".delete").click(function(){
-        console.log("clicked");
-        $.ajax("http://private-6ba54-worldview.apiary-mock.com/photos/"+this.id,{
-            method:"DELETE"
-        }).then(successfullyDeleted)
-    });
 
-    function successfullyDeleted(response){
-        console.log("deleted");
-    }
 
     $("#searchBtn").click(function(){
         displayedPhotos.length=0;
@@ -99,17 +90,42 @@ $(document).ready(function() {
 
     function createForm(){
         $(".date-posts").empty();
-        var locationField = $("<input>");
-        locationField.attr("id","locationField");
-        $(".date-posts").append(locationField);
 
-        
+        $("<input>").attr("id","locationInput").attr("placeholder","Location").appendTo($(".date-posts"));
+        $("<br>").appendTo($(".date-posts"));
+        $("<input>").attr("id","seasonInput").attr("placeholder","Season").appendTo($(".date-posts"));
+        $("<br>").appendTo($(".date-posts"));
+        $("<input>").attr("id","imgurlInput").attr("placeholder","Img URL").appendTo($(".date-posts"));
+        $("<br>").appendTo($(".date-posts"));
+        $("<input>").attr("id","descriptionInput").attr("placeholder","Description").appendTo($(".date-posts"));
+        $("<br>").appendTo($(".date-posts"));
+        $("<button> Submit </button>").attr("id","submitBtn").appendTo($(".date-posts"));
 
-//        var seasonField = ;
-//        var imgUrlField = ;
-//        var descriptionField = ;
+        var photoID = Math.floor((Math.random() * 100) + 1);
 
+        $("#submitBtn").click(function(){
+            $.ajax("http://private-6ba54-worldview.apiary-mock.com/photos/"+photoID,{
+                method:"POST",
+                data:{
+                    //id : photoID,
+                    //location: $("#locationInput").val(),
+                   // season: $("#seasonInput").val(),
+                  //  imgurl: $("#imgurlInput").val(),
+                 //   description: $("#descriptionInput").val(),
+                    "author" : "John Doe"
+                }
+            }).then(proccessPostResponse)
+        });
+
+        function proccessPostResponse(response4){
+            alert("POSTED with ID "+photoID);
+            console.log(response4);
+
+        }
     }
+
+
+
 
     function addPhotoToList(response,top,left){
         var postOuter = $("<div></div>");
@@ -123,6 +139,9 @@ $(document).ready(function() {
         cover.attr("class","cover");
         var header = $("<a>"+ JSON.stringify(response.location)+"</a>");
         header.attr("href","");
+        header.click(function(){
+            alert(response.location);
+        });
         var headerH = $("<h2></h2>");
         headerH.append(header);
         var imgID = $("<div></div>");
@@ -160,6 +179,17 @@ $(document).ready(function() {
         postOuter.append(postHentry);
 
         $(".date-posts").append(postOuter);
+
+        delBtn.click(function(){
+            console.log("clicked");
+            $.ajax("http://private-6ba54-worldview.apiary-mock.com/photos/"+this.id,{
+                method:"DELETE"
+            }).then(successfullyDeleted)
+        });
+
+        function successfullyDeleted(){
+            delBtn.closest('.post-outer').remove();
+        }
     }
 
     $("#searchinput").geocomplete();
