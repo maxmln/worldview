@@ -107,12 +107,12 @@ $(document).ready(function() {
             $.ajax("http://private-6ba54-worldview.apiary-mock.com/photos/"+photoID,{
                 method:"POST",
                 data:{
-                    //id : photoID,
-                    //location: $("#locationInput").val(),
-                   // season: $("#seasonInput").val(),
-                  //  imgurl: $("#imgurlInput").val(),
-                 //   description: $("#descriptionInput").val(),
-                    "author" : "John Doe"
+                    id : photoID,
+                    location: $("#locationInput").val(),
+                    season: $("#seasonInput").val(),
+                    imgurl: $("#imgurlInput").val(),
+                    description: $("#descriptionInput").val(),
+                    author : "John Doe"
                 }
             }).then(proccessPostResponse)
         });
@@ -138,9 +138,31 @@ $(document).ready(function() {
         var cover = $("<div></div>");
         cover.attr("class","cover");
         var header = $("<a>"+ JSON.stringify(response.location)+"</a>");
-        header.attr("href","");
+        header.attr("href","#");
+
+
+
         header.click(function(){
-            alert(response.location);
+            $(".date-posts").empty();
+            console.log(response);
+            addPhotoToList(response,0,550);
+
+            var delBtn = $("<button>X</button>");
+            delBtn.attr("class","delete");
+            delBtn.attr("id",JSON.stringify(response.id));
+            $(".postright").append(delBtn);
+
+            delBtn.click(function(){
+                console.log("clicked");
+                $.ajax("http://private-6ba54-worldview.apiary-mock.com/photos/"+this.id,{
+                    method:"DELETE"
+                }).then(successfullyDeleted)
+            });
+
+            function successfullyDeleted(){
+                $(".postright").empty();
+                delBtn.closest('.post-outer').remove();
+            }
         });
         var headerH = $("<h2></h2>");
         headerH.append(header);
@@ -158,9 +180,7 @@ $(document).ready(function() {
         description.attr("class","description");
         var season = $("<span> Season : "+JSON.stringify(response.season)+"</span>");
         season.attr("class","season");
-        var delBtn = $("<button>X</button>");
-        delBtn.attr("class","delete");
-        delBtn.attr("id",JSON.stringify(response.id));
+
 
         jomore.append(author1);
         jomore.append(description);
@@ -174,22 +194,13 @@ $(document).ready(function() {
         cover.append(imgID);
 
         postright.append(cover);
-        postright.append(delBtn);
+
         postHentry.append(postright);
         postOuter.append(postHentry);
 
         $(".date-posts").append(postOuter);
 
-        delBtn.click(function(){
-            console.log("clicked");
-            $.ajax("http://private-6ba54-worldview.apiary-mock.com/photos/"+this.id,{
-                method:"DELETE"
-            }).then(successfullyDeleted)
-        });
 
-        function successfullyDeleted(){
-            delBtn.closest('.post-outer').remove();
-        }
     }
 
     $("#searchinput").geocomplete();
