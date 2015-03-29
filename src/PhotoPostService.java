@@ -4,6 +4,8 @@ import java.util.List;
 
 public class PhotoPostService {
 	
+	
+	
 	public List<PhotoPost> getPhotoPosts(){
 		return null;
 	}
