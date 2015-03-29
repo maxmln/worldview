@@ -1,7 +1,7 @@
 
 public class PhotoPost {
 	private long id;
-	//private Author author;
+	private Author author;
 	private String season;
 	private String description;
 	private String imgUrl;
@@ -29,5 +29,11 @@ public class PhotoPost {
 	}
 	public void setId(long id) {
 		this.id = id;
+	}
+	public Author getAuthor() {
+		return author;
+	}
+	public void setAuthor(Author author) {
+		this.author = author;
 	}
 }
