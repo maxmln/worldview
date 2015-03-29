@@ -4,7 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-public class Post {
+public class Photo {
 	@Id
 	@GeneratedValue
 	private long id;
@@ -15,6 +15,8 @@ public class Post {
 	private String description;
 	@Column(nullable=false,length=500)
 	private String imgUrl;
+	@Column(nullable=false,length=15)
+	private User author;
 	
 	public String getSeason() {
 		return season;
@@ -40,10 +42,10 @@ public class Post {
 	public void setId(long id) {
 		this.id = id;
 	}
-//	public Author getAuthor() {
-//		return author;
-//	}
-//	public void setAuthor(Author author) {
-//		this.author = author;
-//	}
+	public User getAuthor() {
+		return author;
+	}
+	public void setAuthor(User author) {
+		this.author = author;
+	}
 }
