@@ -20,6 +20,11 @@ $(document).ready(function() {
         console.log(response)
     }
 
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+            alert(position);
+        });
+    }
 
     function processSeasons(){
         var i=0;
@@ -107,12 +112,10 @@ $(document).ready(function() {
             $.ajax("http://private-6ba54-worldview.apiary-mock.com/photos/"+photoID,{
                 method:"POST",
                 data:{
-                    id : photoID,
                     location: $("#locationInput").val(),
                     season: $("#seasonInput").val(),
                     imgurl: $("#imgurlInput").val(),
-                    description: $("#descriptionInput").val(),
-                    author : "John Doe"
+                    description: $("#descriptionInput").val()
                 }
             }).then(proccessPostResponse)
         });
@@ -145,8 +148,9 @@ $(document).ready(function() {
         header.click(function(){
             $(".date-posts").empty();
             console.log(response);
-            addPhotoToList(response,0,550);
 
+
+            addPhotoToList(response,0,550);
             var delBtn = $("<button>X</button>");
             delBtn.attr("class","delete");
             delBtn.attr("id",JSON.stringify(response.id));
