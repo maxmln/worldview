@@ -1,9 +1,20 @@
 package com.worldview.models;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement
+
+@Entity(name="Photos")
+@NamedQueries({
+	@NamedQuery(name="allPhotos",
+			query="SELECT p from Posts p")
+})
 public class Photo {
 	@Id
 	@GeneratedValue
@@ -42,10 +53,10 @@ public class Photo {
 	public void setId(long id) {
 		this.id = id;
 	}
-	public User getAuthor() {
-		return author;
-	}
-	public void setAuthor(User author) {
-		this.author = author;
-	}
+//	public User getAuthor() {
+//		return author;
+//	}
+//	public void setAuthor(User author) {
+//		this.author = author;
+//	}
 }

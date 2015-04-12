@@ -1,3 +1,4 @@
+package com.worldview.service;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
@@ -12,7 +13,7 @@ public class Services {
 	public synchronized static EntityManagerFactory getEntityManagerFactory(){
 		if(entityManagerFactory==null){
 			try {
-				Class.forName("org.apache.derby.jdbc.ClientDriver");
+				Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
 			} catch (ClassNotFoundException e) {
 				throw new IllegalStateException("No driver", e);
 			}

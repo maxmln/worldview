@@ -46,7 +46,7 @@ public class PhotoRest {
 	@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	public Photo createPost(Photo photo) {
-		photo.setAuthor(defaultAuthor);
+//		photo.setAuthor(defaultAuthor);
 		return photosService.addPhoto(photo);
 	}
 	
