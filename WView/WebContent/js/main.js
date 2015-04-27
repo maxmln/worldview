@@ -21,9 +21,10 @@ $(document).ready(function() {
             displayedPhotos.push(response[i]);
             i++;
         });
+        //console.log(displayedPhotos)
 
     }
-    
+
     function addPhotoToList(response){
         var img = $("<img>");
         img.attr("class","img-responsive");
@@ -75,8 +76,6 @@ $(document).ready(function() {
         divInfo.append($("<p>"+"Author : "+response1[0].author+"</p>"));
         $("#row").append(divInfo);
 
-
-
         delBtn.click(function(){
             console.log(this.id);
             $.ajax("http://private-6ba54-worldview.apiary-mock.com/photos/"+this.id,{
@@ -96,6 +95,26 @@ $(document).ready(function() {
             method:"GET"
         }).then(searchFunc)
     });
+
+    $("#summer, #winter, #autumn, #spring").click(function(){
+        $("#row").empty();
+        clickedSeason=this.id;
+        $.ajax("http://private-6ba54-worldview.apiary-mock.com/search",{
+            method:"GET"
+        }).then(processSeasons);
+    });
+
+    function processSeasons(){
+        var i=0;
+        $.each(displayedPhotos,function(){
+            console.log(displayedPhotos[i].season);
+            if(clickedSeason==displayedPhotos[i].season){
+                console.log(displayedPhotos[i]);
+                addPhotoToList(displayedPhotos[i]);
+            }
+            i++;
+        });
+    }
 
     function searchFunc(response2){
         console.log(response2);
