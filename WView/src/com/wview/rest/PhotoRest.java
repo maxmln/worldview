@@ -55,6 +55,7 @@ public class PhotoRest {
 	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	public Photo addPhoto(Photo photo) {
 		//final User author = usersService.getUserByEmail(defaultAuthorEmail);
+		defaultAuthor.setUsername(photo.getAuthor().getUsername());
 		photo.setAuthor(defaultAuthor);
 		return photosService.addPhoto(photo);
 		//return photo;
