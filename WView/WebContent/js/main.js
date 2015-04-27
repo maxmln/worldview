@@ -8,7 +8,6 @@ $(document).ready(function() {
     $("#nearestBtn").click(function(){
         $("#row").empty();
         displayedPhotos.length=0;
-        $(".date-posts").empty();
         $.ajax("http://private-6ba54-worldview.apiary-mock.com/nearest",{
             method:"GET"
         }).then(processNearest)
@@ -24,7 +23,7 @@ $(document).ready(function() {
         });
 
     }
-
+    
     function addPhotoToList(response){
         var img = $("<img>");
         img.attr("class","img-responsive");
@@ -101,7 +100,6 @@ $(document).ready(function() {
     function searchFunc(response2){
         console.log(response2);
         var i=0;
-        var top,left=0;
         $.each(response2,function(){
             if(response2[i].location == $("#searchInput").val()){
                 addPhotoToList(response2[i]);
@@ -114,22 +112,21 @@ $(document).ready(function() {
     $("#submitUploadBtn").click(function(){
         $.ajax("http://private-6ba54-worldview.apiary-mock.com/photos/1",{
             method: "POST",
-            dataType: "json",
             contentType : "application/json",
-            data: JSON.stringify({
-                season : $("#seasonInput").val(),
-                imgUrl: $("#imgurlInput").val(),
-                description: $("#descriptionInput").val(),
+            data: {
+                season : $("#season").val(),
+                imgUrl: $("#url").val(),
+                description: $("#description").val(),
                 author : {
                     "username" : "hello",
                     "password" : "secret"
                 }
-            })
+            }
         }).then(processPostResponse)
     });
 
-    function processPostResponse(){
-        alert('posted')
+    function processPostResponse(response4){
+        console.log(response4);
     };
     
 
