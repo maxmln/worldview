@@ -73,6 +73,8 @@ $(document).ready(function() {
         divInfo.append($("<p>"+"Location : "+response1.description+"</p>"));
         divInfo.append($("<p>"+"Season : "+response1.season+"</p>"));
         divInfo.append($("<p>"+"Author : "+response1.author.username+"</p>"));
+        var editButton = $("<button> Edit Info </button>");
+        divInfo.append(editButton);
         $("#row").append(divInfo);
 
         delBtn.click(function(){
@@ -81,6 +83,32 @@ $(document).ready(function() {
                 method:"DELETE"
             }).then(successfullyDeleted)
         });
+
+        editButton.click(function(){
+           alert("Enter new values in the text fields below the picture");
+            $.ajax("http://localhost:8080/WView/api/photos/",{
+                method: "PUT",
+                contentType : "application/json",
+                data: JSON.stringify({
+                    season : $("#season").val(),
+                    imgUrl: $("#url").val(),
+                    description: $("#location").val(),
+                    author : {
+                        "username" : $("#author").val(),
+                        "password" : "secret"
+                    }
+                })
+            }).then(replaceFunc)
+        });
+
+        function replaceFunc(response5){
+            console.log(response5);
+            viewChosenPhoto(response5);
+            $("#season").val('');
+            $("#url").val('');
+            $("#location").val('');
+            $("#author").val('');
+        }
 
         function successfullyDeleted(){
             $("#row").empty();
@@ -150,6 +178,7 @@ $(document).ready(function() {
         $("#season").val('');
         $("#url").val('');
         $("#location").val('');
+        $("#author").val('');
     };
     
 
