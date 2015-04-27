@@ -74,6 +74,7 @@ $(document).ready(function() {
         divInfo.append($("<p>"+"Season : "+response1.season+"</p>"));
         divInfo.append($("<p>"+"Author : "+response1.author.username+"</p>"));
         var editButton = $("<button> Edit Info </button>");
+        editButton.attr("id",response1.id);
         divInfo.append(editButton);
         $("#row").append(divInfo);
 
@@ -86,7 +87,7 @@ $(document).ready(function() {
 
         editButton.click(function(){
            alert("Enter new values in the text fields below the picture");
-            $.ajax("http://localhost:8080/WView/api/photos/",{
+            $.ajax("http://localhost:8080/WView/api/photos/"+this.id,{
                 method: "PUT",
                 contentType : "application/json",
                 data: JSON.stringify({
@@ -102,7 +103,7 @@ $(document).ready(function() {
         });
 
         function replaceFunc(response5){
-            console.log(response5);
+            $("#row").empty();
             viewChosenPhoto(response5);
             $("#season").val('');
             $("#url").val('');
